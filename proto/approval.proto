@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package aria;
+
+// ── Service ───────────────────────────────────────────────────────────────────
+
+service ApprovalService {
+  // Submit a human approval or denial for a pending escalation
+  rpc SubmitApproval (ApprovalRequest) returns (ApprovalReply);
+
+  // Retrieve all currently pending approval requests
+  rpc GetPendingApprovals (Empty) returns (PendingList);
+}
+
+// ── Messages ──────────────────────────────────────────────────────────────────
+
+message ApprovalRequest {
+  string trace_id    = 1;
+  bool   approved    = 2;
+  string reviewed_by = 3;
+  string notes       = 4;
+}
+
+message ApprovalReply {
+  string trace_id = 1;
+  string status   = 2;
+  string message  = 3;
+}
+
+message Empty {}
+
+message PendingItem {
+  string trace_id     = 1;
+  string user_intent  = 2;
+  int32  risk_score   = 3;
+  string explanation  = 4;
+}
+
+message PendingList {
+  repeated PendingItem items = 1;
+}

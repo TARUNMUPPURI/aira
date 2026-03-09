@@ -1,0 +1,11 @@
+# Normalize line endings to LF in the repository
+* text=auto eol=lf
+
+# Force binary for generated files
+*.sqlite3 binary
+*.bin binary
+*.pkl binary
+chroma_data/** binary
+
+# Protobuf generated files — keep LF
+proto/*.py text eol=lf
